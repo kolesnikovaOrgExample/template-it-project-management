@@ -1,0 +1,25 @@
+name: ❓ Вопрос по заданию
+description: Задайте вопрос по выполнению задания
+title: "[Вопрос] "
+labels: ["question"]
+body:
+  - type: dropdown
+    id: assignment
+    attributes:
+      label: Задание
+      description: К какому заданию относится вопрос?
+      options:
+        - "Задание 1: Бизнес-кейс"
+        - "Задание 2: План проекта"
+        - "Задание 3: Управление рисками"
+        - "Общий вопрос по курсу"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: question
+    attributes:
+      label: Ваш вопрос
+      description: Подробно опишите, что вызывает затруднения
+    validations:
+      required: true
