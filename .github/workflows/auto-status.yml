@@ -1,0 +1,29 @@
+# .github/workflows/auto-status.yml
+name: Auto Update Project Status
+
+on:
+  push:
+    branches: [assignment-*]
+  pull_request:
+    types: [opened, closed]
+
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract assignment number
+        id: extract
+        run: |
+          # Определяем номер задания из имени ветки
+          if [[ ${{ github.ref }} == refs/heads/assignment-* ]]; then
+            ASSIGNMENT=$(echo ${{ github.ref }} | sed 's/refs\/heads\/assignment-//')
+            echo "assignment=${ASSIGNMENT}" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Update project status
+        if: steps.extract.outputs.assignment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            // Автоматически обновляем статус в Project
+            // на основе типа события
